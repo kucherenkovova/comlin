@@ -1,6 +1,8 @@
 package tests;
 
 public class FileFinderTest {
+
+
     /*
     private static final String testDirectory = new File("").getAbsolutePath() + File.separator + "temp" + File.separator;
     private static final String[] extensions = {"java", "c", "cpp"};

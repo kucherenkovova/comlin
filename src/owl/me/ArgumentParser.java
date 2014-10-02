@@ -14,9 +14,8 @@ public class ArgumentParser {
             throw new IllegalArgumentException("Too short argument list");
         else {
             directory = Paths.get(args[0]);
-            if(!Files.isDirectory(directory)) {
+            if(!Files.isDirectory(directory))
                 throw new IllegalArgumentException(directory + " is not a directory");
-            }
             extensions = Arrays.copyOfRange(args, 1, args.length);
         }
     }
