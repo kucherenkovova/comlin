@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.fail;
 
 public class FileFinderTest {
-    private static final String testDirectory = new File("").getAbsolutePath() + "/temp/";
+    private static final String testDirectory = new File("").getAbsolutePath() + File.separator + "temp" + File.separator;
     private static final String[] extensions = {"java", "c", "cpp"};
     private static final String[] filenames = {"javaFile1.java", "binary.c.bin", "cppFile1.cpp",
                                                "java", "cFile1.c", "textFile.txt",
@@ -27,15 +27,17 @@ public class FileFinderTest {
         new File(testDirectory).mkdirs();
         new File(testDirectory + filenames[0]).createNewFile();
         new File(testDirectory + filenames[1]).createNewFile();
-        new File(testDirectory + "/java/").mkdirs();
-        new File(testDirectory + "/java/" + filenames[2]).createNewFile();
-        new File(testDirectory + "/java/" + filenames[3]).createNewFile();
-        new File(testDirectory + "/c/").mkdirs();
-        new File(testDirectory + "/c/" + filenames[4]).createNewFile();
-        new File(testDirectory + "/c/" + filenames[5]).createNewFile();
-        new File(testDirectory + "/c/java/").mkdirs();
-        new File(testDirectory + "/c/java/" + filenames[6]).createNewFile();
-        new File(testDirectory + "/c/java/" + filenames[7]).createNewFile();
+        new File(testDirectory + File.separator + "java" + File.separator).mkdirs();
+        new File(testDirectory + File.separator + "java" + File.separator + filenames[2]).createNewFile();
+        new File(testDirectory + File.separator + "java" + File.separator + filenames[3]).createNewFile();
+        new File(testDirectory + File.separator + "c" + File.separator).mkdirs();
+        new File(testDirectory + File.separator + "c" + File.separator + filenames[4]).createNewFile();
+        new File(testDirectory + File.separator + "c" + File.separator + filenames[5]).createNewFile();
+        new File(testDirectory + File.separator + "c" + File.separator +"java" + File.separator).mkdirs();
+        new File(testDirectory + File.separator + "c" + File.separator +"java" + File.separator +
+                filenames[6]).createNewFile();
+        new File(testDirectory + File.separator + "c" + File.separator + "java" + File.separator
+                + filenames[7]).createNewFile();
     }
 
     @Test
@@ -50,6 +52,6 @@ public class FileFinderTest {
 
     @After
     public void tearDown() {
-       // new File(testDirectory).delete();
+        new File(testDirectory).delete();
     }
 }
