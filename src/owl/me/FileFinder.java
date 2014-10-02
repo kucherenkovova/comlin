@@ -28,10 +28,11 @@ public final class FileFinder {
 
         try(DirectoryStream<Path> directoryStream = Files.newDirectoryStream(startDir)) {
             for(Path path : directoryStream) {
-                if(Files.isDirectory(path))
-                    directories.add(path);
-                else if(Files.isReadable(path) && path.getFileName().toString().matches(pattern))
-                    validFiles.add(path);
+                if(Files.exists(path))
+                    if (Files.isDirectory(path))
+                        directories.add(path);
+                    else if (Files.isReadable(path) && path.getFileName().toString().matches(pattern))
+                        validFiles.add(path);
             }
         } catch (IOException e) {
             e.printStackTrace();
