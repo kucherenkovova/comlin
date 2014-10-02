@@ -1,38 +1,50 @@
 package owl.me;
 
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.io.File;
-import java.io.FileFilter;
+import java.util.List;
 
 
 public final class FileFinder {
-    private String[] extensions;
+    private String pattern;
 
     public FileFinder(String[] extensions) {
-        this.extensions = extensions;
+        StringBuilder sb = new StringBuilder(".+\\.(");
+        for(String extension : extensions) {
+            sb.append(extension);
+            sb.append('|');
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(')');
+        pattern = new String(sb);
     }
 
-    public List<File> findFiles(File startDir) {
-        List<File> validFiles = new ArrayList<File>();
+    public List<Path> findFiles(Path startDir) {
+        List<Path> validFiles = new ArrayList<>();
+        List<Path> directories = new ArrayList<>();
 
-        File[] files = startDir.listFiles(new myFileFilter(extensions));
-        for(File file : files) {
-            validFiles.add(file);
+        try(DirectoryStream<Path> directoryStream = Files.newDirectoryStream(startDir)) {
+            for(Path path : directoryStream) {
+                if(Files.isDirectory(path))
+                    directories.add(path);
+                else if(Files.isReadable(path) && path.getFileName().toString().matches(pattern))
+                    validFiles.add(path);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        File[] directories = startDir.listFiles(new myDirFilter());
-
-        for(File dir : directories) {
-            List<File> innerFiles = findFiles(dir);
-            for(File innerFile : innerFiles){
+        for(Path dir : directories) {
+            List<Path> innerFiles = findFiles(dir);
+            for(Path innerFile : innerFiles){
                 validFiles.add(innerFile);
             }
         }
         return validFiles;
     }
-
+/*
     private class myFileFilter implements FileFilter {
         private Pattern[] patterns;
         private Matcher matcher;
@@ -54,11 +66,13 @@ public final class FileFinder {
             return false;
         }
     }
-
+*/
+/*
     private class myDirFilter implements FileFilter {
         @Override
         public boolean accept(File file) {
             return file.isDirectory();
         }
     }
+*/
 }
