@@ -1,18 +1,7 @@
 package tests;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import owl.me.FileFinder;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.fail;
-
 public class FileFinderTest {
+    /*
     private static final String testDirectory = new File("").getAbsolutePath() + File.separator + "temp" + File.separator;
     private static final String[] extensions = {"java", "c", "cpp"};
     private static final String[] filenames = {"javaFile1.java", "binary.c.bin", "cppFile1.cpp",
@@ -54,4 +43,5 @@ public class FileFinderTest {
     public void tearDown() {
         new File(testDirectory).delete();
     }
+    */
 }

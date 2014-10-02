@@ -45,35 +45,4 @@ public final class FileFinder {
         }
         return validFiles;
     }
-/*
-    private class myFileFilter implements FileFilter {
-        private Pattern[] patterns;
-        private Matcher matcher;
-
-        private myFileFilter(String[] extensions) {
-            patterns = new Pattern[extensions.length];
-            for(int i = 0 ; i < extensions.length ; i++) {
-                patterns[i] = Pattern.compile(".+\\." + extensions[i]);
-            }
-        }
-
-        @Override
-        public boolean accept(File file) {
-            for(Pattern pattern : patterns) {
-                matcher = pattern.matcher(file.getName());
-                if (matcher.matches())
-                    return true;
-            }
-            return false;
-        }
-    }
-*/
-/*
-    private class myDirFilter implements FileFilter {
-        @Override
-        public boolean accept(File file) {
-            return file.isDirectory();
-        }
-    }
-*/
 }
